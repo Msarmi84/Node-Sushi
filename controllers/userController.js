@@ -12,59 +12,59 @@ class userController {
         })
     }
 
-        //selecciona un usuario en concreto de la tabla user y lo envia a la vista oneUser
+    //selecciona un usuario en concreto de la tabla user y lo envia a la vista oneUser
     seeOneUser(req, res) {
-        let id_dish= req.params.id_dish
-        let sql = `SELECT * FROM dish WHERE id_dish = ${id_dish}`;
-        connection.query(sql, (err, result) => {
-            if (err) throw err;
-            res.render('oneDish', { result })
-        })
-    }
-
+            let id_dish = req.params.id_dish
+            let sql = `SELECT * FROM dish WHERE id_dish = ${id_dish}`;
+            connection.query(sql, (err, result) => {
+                if (err) throw err;
+                res.render('oneDish', { result })
+            })
+        }
+        //CRUD
         //guardar el usuario
-    saveDish(req,res) {
+    saveDish(req, res) {
         const { name, ingredients, email } = req.body
         let image = req.file.filename;
         let sql = `INSERT INTO dish (name,ingredients,email,image) VALUES ( '${name}', '${ingredients}','${email}','${image}')`;
-    
+
         connection.query(sql, (error, result) => {
-        if (error) throw error;
-        res.redirect('/users')
+            if (error) throw error;
+            res.redirect('/users')
         })
     }
-    
+
     deleteDish(req, res) {
-        let id_dish= req.params.id_dish
+        let id_dish = req.params.id_dish
         console.log(req.params);
         let sql = `DELETE FROM dish WHERE id_dish = ${id_dish}`
         connection.query(sql, (error, result) => {
             if (error) throw error;
-            res.redirect ('/users')
-            })
+            res.redirect('/users')
+        })
     }
-    
+
     editDish(req, res) {
         let id_dish = req.params.id_dish
         console.log(req.params);
-        let sql= `SELECT * FROM dish WHERE id_dish = ${id_dish}`;
+        let sql = `SELECT * FROM dish WHERE id_dish = ${id_dish}`;
         connection.query(sql, (error, result) => {
             if (error) throw error;
-            res.render ('editForm',{result})
+            res.render('editForm', { result })
         })
     }
-    
+
     updateDish(req, res) {
-    let id_dish = req.params.id_dish;
-    const { name, ingredients, email } = req.body
-    let sql=`UPDATE dish SET name='${name}', ingredients='${ingredients}', email='${email}' WHERE id_dish = ${id_dish}`
-    connection.query(sql,(error,result)=>{
-        if(error)throw error;
-        res.redirect('/users')
+        let id_dish = req.params.id_dish;
+        const { name, ingredients, email } = req.body
+        let sql = `UPDATE dish SET name='${name}', ingredients='${ingredients}', email='${email}' WHERE id_dish = ${id_dish}`
+        connection.query(sql, (error, result) => {
+            if (error) throw error;
+            res.redirect('/users')
         })
     }
-    
-    
+
+
 
 
 
